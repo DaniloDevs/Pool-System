@@ -8,6 +8,7 @@ import SelectableButton from "../input";
 
 
 import * as z from 'zod';
+import axios from "axios";
 
 const schema = z.object({
 	codigo: z.string().min(1, { message: 'Código é obrigatório' }),
@@ -30,12 +31,15 @@ export default function Form() {
 	});
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log(data)
+		axios.post("http://localhost:3000/api/voting", {
+			code: data.codigo,
+			candidate: data.selectedOption
+		})
 		reset()
 	}
 
 	const codigoValue = watch('codigo');
-	const stateButton = codigoValue !== ''
+	const stateButton = codigoValue == ''
 
 	return (
 		<div className="w-80 p-5 bg-gray-50 shadow-2xl rounded-2xl">
@@ -66,25 +70,25 @@ export default function Form() {
 								value="Tábata"
 								isSelected={value === 'Tábata'}
 								onChange={onChange}
-								state={stateButton}
+								state={!stateButton}
 							/>
 							<SelectableButton
 								value="Joelson"
 								isSelected={value === 'Joelson'}
 								onChange={onChange}
-								state={stateButton}
+								state={!stateButton}
 							/>
 							<SelectableButton
 								value="Lobo"
 								isSelected={value === 'Lobo'}
 								onChange={onChange}
-								state={stateButton}
+								state={!stateButton}
 							/>
 							<SelectableButton
 								value="Cartaxo"
 								isSelected={value === 'Cartaxo'}
 								onChange={onChange}
-								state={stateButton}
+								state={!stateButton}
 							/>
 						</div>
 					)}
