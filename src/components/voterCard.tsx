@@ -9,7 +9,7 @@ export default function VoterCard({ nome, codigoVotacao }: { nome: string, codig
                </CardHeader>
                <CardContent>
                     <div className="flex flex-col items-center gap-1">
-                         <span className=" text-[0.7rem] font-medium text-muted-foreground">Código de Votação</span>
+                         <span className=" text-[0.7wrem] font-medium text-muted-foreground">Código de Votação</span>
                          <Badge variant="secondary" className="text-lg font-bold">
                               {codigoVotacao}
                          </Badge>

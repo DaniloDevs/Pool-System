@@ -2,6 +2,10 @@
 'use client';
 import { useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { Card, CardContent } from "@/components/ui/card"
+import { Check } from "lucide-react"
 
 type FormData = {
   code: string;
@@ -14,7 +18,7 @@ export default function Form() {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const formData = { ...data, selectedOption };
-   
+
     try {
       fetch(
         `http://localhost:3000/api/voter?code=${encodeURIComponent(
@@ -53,7 +57,6 @@ export default function Form() {
         '➡️ Por favor, tente novamente. Houve um erro no servidor'
       );
     }
-    // console.log(`Data: ${formData}`);
 
     // Resetar o formulário após o envio
     reset();
@@ -64,68 +67,39 @@ export default function Form() {
     setSelectedOption(option); // Atualiza a opção selecionada
   };
 
+  const options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']
+  
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='bg-slate-200 w-96 m-auto self-center'>
-      <div>
-        <label htmlFor="code">Código:</label>
-        <input
-          className="bg-transparent border border-white rounded-md"
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto p-6 bg-background rounded-lg border shadow-xl ">
+      <div className="space-y-2">
+        <Label htmlFor="code">Código:</Label>
+        <Input
+          className="bg-transparent border  rounded-md"
           id="code"
           {...register('code', { required: true })}
         />
       </div>
 
-      <div>
-        <span>Escolha o seu candidato:</span>
-
-        <div className="grid grid-cols-2 gap-2 ">
-          <button
-            className={`border rounded-md w-full ${
-              selectedOption === '1'
-                ? 'border-green-400 bg-white/25'
-                : 'border-white'
-            }`}
-            type="button"
-            onClick={() => handleSelectOption('1')}
-          >
-            Opção 1
-          </button>
-          <button
-            type="button"
-            className={`border rounded-md w-full ${
-              selectedOption === '2'
-                ? 'border-green-400 bg-white/25'
-                : 'border-white'
-            }`}
-            onClick={() => handleSelectOption('2')}
-          >
-            Opção 2
-          </button>
-          <button
-            type="button"
-            className={`border rounded-md w-full ${
-              selectedOption === '3'
-                ? 'border-green-400 bg-white/25'
-                : 'border-white'
-            }`}
-            onClick={() => handleSelectOption('3')}
-          >
-            Opção 3
-          </button>
-          <button
-            type="button"
-            className={`border rounded-md w-full ${
-              selectedOption === '4'
-                ? 'border-green-400 bg-white/25'
-                : 'border-white'
-            }`}
-            onClick={() => handleSelectOption('4')}
-          >
-            Opção 4
-          </button>
+      <div className="space-y-2">
+        <Label className="block mb-2">Select an Option</Label>
+        <div className="grid grid-cols-2 gap-4">
+          {options.map((option) => (
+            <Card
+              key={option}
+              className={`cursor-pointer transition-all ${selectedOption === option ? 'ring-2 ring-primary' : ''
+                }`}
+              onClick={() => handleSelectOption(option)}
+            >
+              <CardContent className="flex items-center justify-between p-4">
+                <span>{option}</span>
+                {selectedOption === option && (
+                  <Check className="h-5 w-5 text-primary" />
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
-
       <button
         type="submit"
         className="w-full p-4 border mt-2 rounded-md border-white"
