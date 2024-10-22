@@ -65,7 +65,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className='bg-slate-200 w-96 m-auto self-center'>
       <div>
         <label htmlFor="code">Código:</label>
         <input
@@ -78,9 +78,9 @@ export default function Form() {
       <div>
         <span>Escolha o seu candidato:</span>
 
-        <div className="grid grid-cols-2 gap-2 min-w-[600px] min-h-[200px]">
+        <div className="grid grid-cols-2 gap-2 ">
           <button
-            className={`border rounded-md ${
+            className={`border rounded-md w-full ${
               selectedOption === '1'
                 ? 'border-green-400 bg-white/25'
                 : 'border-white'
@@ -92,7 +92,7 @@ export default function Form() {
           </button>
           <button
             type="button"
-            className={`border rounded-md ${
+            className={`border rounded-md w-full ${
               selectedOption === '2'
                 ? 'border-green-400 bg-white/25'
                 : 'border-white'
@@ -103,7 +103,7 @@ export default function Form() {
           </button>
           <button
             type="button"
-            className={`border rounded-md ${
+            className={`border rounded-md w-full ${
               selectedOption === '3'
                 ? 'border-green-400 bg-white/25'
                 : 'border-white'
@@ -114,7 +114,7 @@ export default function Form() {
           </button>
           <button
             type="button"
-            className={`border rounded-md ${
+            className={`border rounded-md w-full ${
               selectedOption === '4'
                 ? 'border-green-400 bg-white/25'
                 : 'border-white'
