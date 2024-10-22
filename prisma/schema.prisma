@@ -9,9 +9,20 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
 model voting {
-  id String @id @default(cuid())
-  code String @unique
-  candidate String 
-  voteAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  code      String   @unique
+  candidate String
+  voteAt    DateTime @default(now())
+  voter     voter    @relation(fields: [voterId], references: [id])
+  voterId   String
+}
+
+model voter {
+  id        String   @id @default(cuid())
+  votecode  Int      @unique
+  name      String
+  validVote Boolean  @default(true)
+  voting    voting[]
 }
